@@ -10,9 +10,13 @@ import { create } from "@socialgouv/kosko-charts/components/azure-pg"
 export default () => {
 
   if (env.env === "dev") {
-    return create({
+    const manifests = create({
       env,
-    })
+    });
+    const secret = loadYaml<SealedSecret>(env, `pg.sealed-secret.yaml`);
+    if (secret) {
+      manifests.push(secret)
+    }
   }
 
   // in prod/preprod, we try to add a fixed sealed-secret
