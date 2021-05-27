@@ -17,6 +17,7 @@ export default () => {
     if (secret) {
       manifests.push(secret)
     }
+    return manifests;
   }
 
   // in prod/preprod, we try to add a fixed sealed-secret
